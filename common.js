@@ -1,5 +1,5 @@
 // JS LOADER
-function js_loader(show, containerID) {
+ var js_loader = function(show, containerID) {
     /** 
      * show=1 hide=0
      * NOTE: Change image for loader below
@@ -45,12 +45,11 @@ function js_loader(show, containerID) {
         $("#my_js_loader").remove();
         $("#backdrop_div").remove();
     }
-}
- 
+};
  
 
 // BS 4 Alert message to show after ajax or any other operation
-function bs_alert_msg(msg, alert_class) {
+var bs_alert_msg = function(msg, alert_class) {
     var bs_alert_msg = '';
     if (alert_class === undefined) {
         alert_class = 'success';
@@ -60,27 +59,27 @@ function bs_alert_msg(msg, alert_class) {
     bs_alert_msg += '<strong>'+msg+'</strong>';
     bs_alert_msg += '</div>';
     return bs_alert_msg;
-}
+};
 
 // Convert serialized array data of form in JSON
-function serializeArrayToJSON(data, form_id) {
-        // either pass form id or serializearray data of the form
-        var rdata = {};
-        if (data == undefined) {
-            if (form_id == undefined) {
-                alert("please provide either form id or serialize array data.");
-            } else {
-                data = $("#"+form_id).serializeArray();
-            }
+var serializeArrayToJSON = function(data, form_id) {
+    // either pass form id or serializearray data of the form
+    var rdata = {};
+    if (data == undefined) {
+        if (form_id == undefined) {
+            alert("please provide either form id or serialize array data.");
+        } else {
+            data = $("#"+form_id).serializeArray();
         }
-        $.each(data, function(k,v){
-            rdata[v.name] = v.value;
-        });
-        return rdata;
     }
+    $.each(data, function(k,v){
+        rdata[v.name] = v.value;
+    });
+    return rdata;
+};
  
 // Animate JS element after any event
-function focusAnimate(paramObj) {
+var focusAnimate = function(paramObj) {
     Obj = {
         "elementID": paramObj.elementID,
         "timeToExecute": (paramObj.timeToExecute == undefined) ? 5000: paramObj.timeToExecute,
@@ -124,12 +123,11 @@ function focusAnimate(paramObj) {
             return;
         }
     },100);
-}
+};
  
 
-
 // validate checkEmail
-function checkEmail() {
+var checkEmail = function() {
     var email = document.getElementById('posterEmail');
     var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!filter.test(email.value)) {
@@ -137,33 +135,32 @@ function checkEmail() {
         email.focus;
         return false;
     }
-}
-
+};
 
 
 // Is url
-function is_url(str) {
+var is_url = function(str) {
 	var regEx = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ig;
    	if (str.match(regEx)) {
      return true;
    	} else {
    	  return false;
    	}
-}
+};
 
 // Is Domain
-function is_domain(str) {
+var is_domain = function(str) {
 	var ptrn = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ig;
  	console.log(str.match(ptrn+str));
     if (str.match(ptrn)) {
     	return true;
     }
     return false;
-}
+};
 
 
 // validateEmail
-function validateEmail(str) {
+var validateEmail = function(str) {
     var strLen  = str.length;
     var posAt   = str.indexOf("@");
     var posDot  = str.lastIndexOf(".");
@@ -185,17 +182,18 @@ function validateEmail(str) {
         return "Email must contain @ and dot (.) character";
     }
     return false;
-}
+};
 
 // Validate password
 
-function validPassword(psw) { 
+var validPassword = function(psw) { 
     if (psw.match(/[a-z]/g) && 
-psw.match(/[A-Z]/g) && 
-psw.match(/[0-9]/g) && 
-psw.match(/[^a-zA-Z\d]/g) && 
-psw.length >= 8) 
+    psw.match(/[A-Z]/g) && 
+    psw.match(/[0-9]/g) && 
+    psw.match(/[^a-zA-Z\d]/g) && 
+    psw.length >= 8) {
 	    return true; 
-	else 
+    } else {
 	    return false; 
-}
+    }
+};
