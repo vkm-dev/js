@@ -197,3 +197,21 @@ var validPassword = function(psw) {
 	    return false; 
     }
 };
+
+//change bg color on input blur or select change
+function setNonBlankfieldBG() {
+	var inputs = document.querySelectorAll("input:not([type='button'])");
+	var selects = document.querySelectorAll("select");
+	inputs.forEach(function(input){
+		if (input.value != '') {
+			input.style.background = "#d9edf7";
+		}
+		// console.log(input);
+	});
+	selects.forEach(function(select){
+		// console.log(select.value);
+		if (select.value != '' && select.value.toLowerCase().indexOf('select') == -1) {
+			select.style.background = "#d9edf7";
+		}
+	});
+}
