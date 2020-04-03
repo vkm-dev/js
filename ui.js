@@ -73,24 +73,31 @@ function getSelectedOptionText(selectElelentID) {
 }
 
 // setNonBlankfieldBG
-function setNonBlankfieldBG() {
-  $("input:not([type='button'])").css({"background":"#fff"})
-  $("select").css({"background":"#fff"})
-  var inputs = document.querySelectorAll("input:not([type='button'])");
-  var selects = document.querySelectorAll("select");
-  console.log(inputs);
-  inputs.forEach(function(input){
-    if (input.value != null && input.value.trim() != '') {
-      input.style.background = "#eafbfb";
-    }
-  });
-  selects.forEach(function(select){
-    // //console.log(select.value);
-    if (select.value != '' && select.value != '0' && select.value != 'null' && select.value.toLowerCase().indexOf('select') == -1) {
-      select.style.background = "#eafbfb";
-    }
-  });
-}
+document.querySelectorAll("select").forEach(function(sel,i){
+    	sel.addEventListener("change",setNonBlankfieldBG);
+	});
+	document.querySelectorAll("input").forEach(function(sel,i){
+    	sel.addEventListener("blur",setNonBlankfieldBG);
+	});
+	// on change of input change bg color if value not blank 
+	function setNonBlankfieldBG() {
+		$("input:not([type='button']):not([type='submit']):not([type='reset'])").css({"background":"#fff"});
+		$("select").css({"background":"#fff"});
+		var inputs = document.querySelectorAll("input:not([type='button']):not([type='submit']):not([type='reset'])");
+		var selects = document.querySelectorAll("select");
+		console.log(inputs);
+		inputs.forEach(function(input){
+			if (input.value != null && input.value.trim() != '') {
+				input.style.background = "#eafbfb";
+			}
+		});
+		selects.forEach(function(select){
+			// //console.log(select.value);
+			if (select.value != '' && select.value != '0' && select.value != 'null' && select.value.toLowerCase().indexOf('select') == -1) {
+				select.style.background = "#eafbfb";
+			}
+		});
+	}
 
 
 // Animate JS element after any event
