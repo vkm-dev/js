@@ -1,3 +1,24 @@
+// make variable blank if undefined
+function str(variable) {
+    if (typeof variable != 'undefined') {
+	if (variable == null) {
+	    variable = '';
+	}
+	return variable;
+    }
+    return '';
+}
+// check if null
+function checkNull(variable) {
+    if (typeof variable != 'undefined') {
+	if (variable == null) {
+	    return true;
+	}
+	return false;
+    }
+    return undefined;
+}
+
 // validate checkEmail
 var checkEmail = function() {
     var email = document.getElementById('posterEmail');
