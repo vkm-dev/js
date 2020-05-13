@@ -1,5 +1,41 @@
+// pop up alert message 
+if (typeof pop_message === 'undefined') {
+	function pop_message(message,messageType="success", redirectTo = '') {
+		var headColor = (messageType.toString().toLowerCase() == 'success') ? "green" : "red";
+		var headMessage  = (messageType.toString().toLowerCase() == 'success') ? "SUCCESS!" : "WARNING!";
+		var messageHtml = `
+			<div style="width: 100%;height: 100vh;background: #06060633;position: absolute;top: 0;left: 0;z-index: 999999;">
+				<div style="top:30%;width:98%;max-width: 390px;height: 200px;position: relative;z-index: 999999999;margin: 0 auto;border: 1px solid #ccc;box-shadow: 7px 7px 10px #00000073;background: #fff;">
+				<br>
+				<p style="color:${headColor};text-align:center;font-size:24px;">${headMessage.toUpperCase()}</p>
+				<hr style="margin:0;padding:0;">
+				<p style="font-size: 18px;margin:10px;text-align: center;">${message}</p>
+				<div style="position: absolute;bottom: 0;width: 100%;padding: 10px;text-align: center;">
+					<button onclick="pop_message(false)" style="background: #2084ff;color: #fff;font-size: 20px;border:1px solid #5bc0de;border-radius: 5px;box-shadow: 10px 10px 10px #ccc;margin: 0px 15px;width:60px;" onclick="">OK</button>
+				</div>
+				</div>
+			</div>
+			`;
+		try{
+			message  = (!message || message == "undefined") ? false : message;
+			if (!message) {
+				var popupContainer = document.querySelector(".pop_message_container");
+                (popupContainer != null) ? popupContainer.remove() : '';
+                if (redirectTo != '') {
+                    window.location.href=redirectTo;
+                }
+			} else {
+				var div = document.createElement('div');
+				div.classList.add("pop_message_container");
+				div.innerHTML = messageHtml;
+				document.body.appendChild(div);
+			}
+		} catch(err){console.log(err.message);}
+	}
+}
+
 // JS LOADER
- var js_loader = function(show, containerID) {
+var js_loader = function(show, containerID) {
     /** 
      * show=1 hide=0
      * NOTE: Change image for loader below
@@ -23,7 +59,7 @@
         containerHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
         // console.log(containerID,containerHeight);
     }
- 
+
     leftPos         = parseInt(containerWidth/2) - 32;
     topPos          = parseInt(containerHeight/2) - 32;
     styleDiv        += "top:"+topPos+"px;left:"+leftPos+"px;padding:2px;";
@@ -46,7 +82,7 @@
         $("#backdrop_div").remove();
     }
 };
- 
+
 
 // BS 4 Alert message to show after ajax or any other operation
 var bs_alert_msg = function(msg, alert_class) {
@@ -63,41 +99,41 @@ var bs_alert_msg = function(msg, alert_class) {
 
 // getSelectedOptionText
 function getSelectedOptionText(selectElelentID) {
-  var sel	= document.getElementById(selectElelentID);
-  var selOpt = sel.options[sel.selectedIndex];
-  if (selOpt !== undefined) {
-    return selOpt.innerText;
-  } else {
-    return '';
-  }
+    var sel	= document.getElementById(selectElelentID);
+    var selOpt = sel.options[sel.selectedIndex];
+    if (selOpt !== undefined) {
+        return selOpt.innerText;
+    } else {
+        return '';
+    }
 }
 
 // setNonBlankfieldBG
 document.querySelectorAll("select").forEach(function(sel,i){
-    	sel.addEventListener("change",setNonBlankfieldBG);
-	});
-	document.querySelectorAll("input").forEach(function(sel,i){
-    	sel.addEventListener("blur",setNonBlankfieldBG);
-	});
-	// on change of input change bg color if value not blank 
-	function setNonBlankfieldBG() {
-		$("input:not([type='button']):not([type='submit']):not([type='reset'])").css({"background":"#fff"});
-		$("select").css({"background":"#fff"});
-		var inputs = document.querySelectorAll("input:not([type='button']):not([type='submit']):not([type='reset'])");
-		var selects = document.querySelectorAll("select");
-		console.log(inputs);
-		inputs.forEach(function(input){
-			if (input.value != null && input.value.trim() != '') {
-				input.style.background = "#eafbfb";
-			}
-		});
-		selects.forEach(function(select){
-			// //console.log(select.value);
-			if (select.value != '' && select.value != '0' && select.value != 'null' && select.value.toLowerCase().indexOf('select') == -1) {
-				select.style.background = "#eafbfb";
-			}
-		});
-	}
+        sel.addEventListener("change",setNonBlankfieldBG);
+});
+document.querySelectorAll("input").forEach(function(sel,i){
+    sel.addEventListener("blur",setNonBlankfieldBG);
+});
+// on change of input change bg color if value not blank 
+function setNonBlankfieldBG() {
+    $("input:not([type='button']):not([type='submit']):not([type='reset'])").css({"background":"#fff"});
+    $("select").css({"background":"#fff"});
+    var inputs = document.querySelectorAll("input:not([type='button']):not([type='submit']):not([type='reset'])");
+    var selects = document.querySelectorAll("select");
+    console.log(inputs);
+    inputs.forEach(function(input){
+        if (input.value != null && input.value.trim() != '') {
+            input.style.background = "#eafbfb";
+        }
+    });
+    selects.forEach(function(select){
+        // //console.log(select.value);
+        if (select.value != '' && select.value != '0' && select.value != 'null' && select.value.toLowerCase().indexOf('select') == -1) {
+            select.style.background = "#eafbfb";
+        }
+    });
+}
 
 
 // Animate JS element after any event
@@ -146,3 +182,23 @@ var focusAnimate = function(paramObj) {
         }
     },100);
 };
+
+
+var unloaded = false;
+$(window).on('beforeunload', unload);
+$(window).on('unload', unload);	 
+function unload(){		
+    if(!unloaded){
+        $('body').css('cursor','wait');
+        $.ajax({
+            type: 'get',
+            async: false,
+            url: window.location.origin+'/logout',
+            success:function(){ 
+                unloaded = true; 
+                $('body').css('cursor','default');
+            },
+            timeout: 5000
+        });
+    }
+}
