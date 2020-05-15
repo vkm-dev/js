@@ -1,0 +1,8 @@
+Optional Parameters
+    The following is a common pattern for assigning default values to parameters:
+
+    function pair(x, y) {
+        x = x || 0;  // (1)
+        y = y || 0;
+        return [ x, y ];
+    }
