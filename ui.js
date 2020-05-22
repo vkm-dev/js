@@ -1,37 +1,75 @@
+// pop up confirm message 
+if (typeof pop_confirm === 'undefined') {
+    function pop_confirm(message, yesCallback) {
+        var messageHtml = `
+            <div style="width: 100%;height: 100vh;background: #06060633;position: fixed;top: 0;left: 0;z-index: 999999;">
+                <div style="top:30%;width:98%;max-width: 390px;height: 200px;position: relative;z-index: 999999999;margin: 0 auto;border: 1px solid #ccc;box-shadow: 7px 7px 10px #00000073;background: #fff;">
+                <p style="text-align:left;font-size:20px;background: #f1f1f1;font-weight: 700;padding: 5px;margin: 0;">Confirm</p>
+                <hr style="margin:0;padding:0;">
+                <p style="font-size: 18px;margin:10px;text-align: center;">${message}</p>
+                <div style="position: absolute;bottom: 0;width: 100%;padding: 10px;text-align: center;">
+                    <button onclick="javascript:return pop_confirm('yesCallback', ${yesCallback});" style="background: #28a745;color: #fff;font-size: 20px;border:1px solid #28a745;border-radius: 5px;box-shadow: 10px 10px 10px #ccc;margin: 0px 15px;width:60px;" onclick="">YES</button>
+                    <button onclick="pop_confirm(false)" style="background: #F44336;color: #fff;font-size: 20px;border:1px solid #f91f0f;border-radius: 5px;box-shadow: 10px 10px 10px #ccc;margin: 0px 15px;width:60px;" onclick="">NO</button>
+                </div>
+                </div>
+            </div>
+            `;
+        try{
+            message  = (!message || message == "undefined") ? false : message;
+            var popupContainer = document.querySelector(".pop_message_container");
+            if (!message) {
+                (popupContainer != null) ? popupContainer.remove() : '';
+            } else {
+                if (message == 'yesCallback') {
+                    if (typeof yesCallback == 'function') {
+                        yesCallback();
+                    }
+                    (popupContainer != null) ? popupContainer.remove() : '';
+                    return true;
+                } else {
+                    var div = document.createElement('div');
+                    div.classList.add("pop_message_container");
+                    div.innerHTML = messageHtml;
+                    document.body.appendChild(div);
+                }
+            }
+        } catch(err){console.log(err.message);}
+    }
+}
+
 // pop up alert message 
 if (typeof pop_message === 'undefined') {
-	function pop_message(message,messageType="success", redirectTo = '') {
-		var headColor = (messageType.toString().toLowerCase() == 'success') ? "green" : "red";
-		var headMessage  = (messageType.toString().toLowerCase() == 'success') ? "SUCCESS!" : "WARNING!";
-		var messageHtml = `
-			<div style="width: 100%;height: 100vh;background: #06060633;position: absolute;top: 0;left: 0;z-index: 999999;">
-				<div style="top:30%;width:98%;max-width: 390px;height: 200px;position: relative;z-index: 999999999;margin: 0 auto;border: 1px solid #ccc;box-shadow: 7px 7px 10px #00000073;background: #fff;">
-				<br>
-				<p style="color:${headColor};text-align:center;font-size:24px;">${headMessage.toUpperCase()}</p>
-				<hr style="margin:0;padding:0;">
-				<p style="font-size: 18px;margin:10px;text-align: center;">${message}</p>
-				<div style="position: absolute;bottom: 0;width: 100%;padding: 10px;text-align: center;">
-					<button onclick="pop_message(false)" style="background: #2084ff;color: #fff;font-size: 20px;border:1px solid #5bc0de;border-radius: 5px;box-shadow: 10px 10px 10px #ccc;margin: 0px 15px;width:60px;" onclick="">OK</button>
-				</div>
-				</div>
-			</div>
-			`;
-		try{
-			message  = (!message || message == "undefined") ? false : message;
-			if (!message) {
-				var popupContainer = document.querySelector(".pop_message_container");
+    function pop_message(message,messageType="success", redirectTo = '') {
+        var headColor = (messageType.toString().toLowerCase() == 'success') ? "green" : "red";
+        var headMessage  = (messageType.toString().toLowerCase() == 'success') ? "SUCCESS!" : "WARNING!";
+        var messageHtml = `
+            <div style="width: 100%;height: 100vh;background: #06060633;position: fixed;top: 0;left: 0;z-index: 999999;">
+                <div style="top:30%;width:98%;max-width: 390px;height: 200px;position: relative;z-index: 999999999;margin: 0 auto;border: 1px solid #ccc;box-shadow: 7px 7px 10px #00000073;background: #fff;">
+                    <p style="color:${headColor};text-align:center;font-size:20px;background: #f1f1f1;font-weight: 700;padding: 5px;margin: 0;">${headMessage.toUpperCase()}</p>
+                    <hr style="margin:0;padding:0;">
+                    <p style="font-size: 18px;margin:10px;text-align: center;">${message}</p>
+                    <div style="position: absolute;bottom: 0;width: 100%;padding: 10px;text-align: center;">
+                    <button onclick="pop_message(false, '', '${redirectTo}')" style="background: #2084ff;color: #fff;font-size: 20px;border:1px solid #5bc0de;border-radius: 5px;box-shadow: 10px 10px 10px #ccc;margin: 0px 15px;width:60px;" onclick="">OK</button>
+                    </div>
+                </div>
+            </div>
+            `;
+        try{
+            message  = (!message || message == "undefined") ? false : message;
+            if (!message) {
+                var popupContainer = document.querySelector(".pop_message_container");
                 (popupContainer != null) ? popupContainer.remove() : '';
                 if (redirectTo != '') {
                     window.location.href=redirectTo;
                 }
-			} else {
-				var div = document.createElement('div');
-				div.classList.add("pop_message_container");
-				div.innerHTML = messageHtml;
-				document.body.appendChild(div);
-			}
-		} catch(err){console.log(err.message);}
-	}
+            } else {
+                var div = document.createElement('div');
+                div.classList.add("pop_message_container");
+                div.innerHTML = messageHtml;
+                document.body.appendChild(div);
+            }
+        } catch(err){console.log(err.message);}
+    }
 }
 
 // JS LOADER
