@@ -73,53 +73,55 @@ if (typeof pop_message === 'undefined') {
 }
 
 // JS LOADER
-var js_loader = function(show, containerID) {
-    /** 
-     * show=1 hide=0
-     * NOTE: Change image for loader below
-     **/ 
-    var imgURL          = 'https://vidyasagarf.accevate.com/img/ajax_loader.gif';
-    var imgURL          = false;
-    var append_html     = '';
-    var styleDiv        = '';
-    var containerWidth  = 0;
-    var containerHeight = 0;
-    var leftPos         = 0;
-    if (typeof containerID !== 'undefined') { // position reletive
-        container = $('#'+containerID);
-        containerHeight = container.height();
-        containerWidth  = container.width();
-        styleDiv  += "position:relative;padding:2px;width:65px;height:65px;"; 
-    } else { // position fixed
-        container = $('body');
-        styleDiv  += "position:fixed;padding:2px;z-index:999999;";
-        containerWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-        containerHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-        // console.log(containerID,containerHeight);
-    }
+if (typeof js_loader === 'undefined') {
+    var js_loader = function(show, containerID) {
+        /** 
+         * show=1 hide=0
+         * NOTE: Change image for loader below
+         **/ 
+        var imgURL          = 'https://vidyasagarf.accevate.com/img/ajax_loader.gif';
+        var imgURL          = false;
+        var append_html     = '';
+        var styleDiv        = '';
+        var containerWidth  = 0;
+        var containerHeight = 0;
+        var leftPos         = 0;
+        if (typeof containerID !== 'undefined') { // position reletive
+            container = $('#'+containerID);
+            containerHeight = container.height();
+            containerWidth  = container.width();
+            styleDiv  += "position:relative;padding:2px;width:65px;height:65px;"; 
+        } else { // position fixed
+            container = $('body');
+            styleDiv  += "position:fixed;padding:2px;z-index:999999;";
+            containerWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            containerHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+            // console.log(containerID,containerHeight);
+        }
 
-    leftPos         = parseInt(containerWidth/2) - 32;
-    topPos          = parseInt(containerHeight/2) - 32;
-    styleDiv        += "top:"+topPos+"px;left:"+leftPos+"px;padding:2px;";
-    append_html     += '<div id="my_js_loader" class="text-center" style="'+ styleDiv +'">';
-    if (!imgURL) {
-        append_html     += '<div class="spinner-border text-info d-inline-block"></div>';
-    } else {
-        append_html     += '<img src="'+imgURL+'" width="64" height="64">';
-    }
-    append_html     += '</div>';
-    append_html     += '<div id="backdrop_div" style="width: 100%;height: 100vh;position: fixed;z-index: 999999;left: 0;top: 0;background: #0000001f;"></div>';
-    // show = 1 / hide = 0
-    $('#backdrop_div').css({"background": "#cecece"}); 
-    if (show == 1) {
-        container.prepend(append_html);
-        
-    } else {
-        // container.css({"background": "#fff"});
-        $("#my_js_loader").remove();
-        $("#backdrop_div").remove();
-    }
-};
+        leftPos         = parseInt(containerWidth/2) - 32;
+        topPos          = parseInt(containerHeight/2) - 32;
+        styleDiv        += "top:"+topPos+"px;left:"+leftPos+"px;padding:2px;";
+        append_html     += '<div id="my_js_loader" class="text-center" style="'+ styleDiv +'">';
+        if (!imgURL) {
+            append_html     += '<div class="spinner-border text-info d-inline-block"></div>';
+        } else {
+            append_html     += '<img src="'+imgURL+'" width="64" height="64">';
+        }
+        append_html     += '</div>';
+        append_html     += '<div id="backdrop_div" style="width: 100%;height: 100vh;position: fixed;z-index: 999999;left: 0;top: 0;background: #0000001f;"></div>';
+        // show = 1 / hide = 0
+        $('#backdrop_div').css({"background": "#cecece"}); 
+        if (show == 1) {
+            container.prepend(append_html);
+            
+        } else {
+            // container.css({"background": "#fff"});
+            $("#my_js_loader").remove();
+            $("#backdrop_div").remove();
+        }
+    };
+}
 
 
 // BS 4 Alert message to show after ajax or any other operation
