@@ -30,6 +30,16 @@ var checkEmail = function() {
     }
 };
 
+function ValidateEmail(email) 
+{
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+    {
+        return (true)
+    }
+    return (false)
+}
+
+
 
 // Is url
 var is_url = function(str) {
@@ -85,9 +95,9 @@ var validPassword = function(psw) {
     psw.match(/[0-9]/g) && 
     psw.match(/[^a-zA-Z\d]/g) && 
     psw.length >= 8) {
-	    return true; 
+        return true; 
     } else {
-	    return false; 
+        return false; 
     }
 };
 
