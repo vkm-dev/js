@@ -123,6 +123,25 @@ if (typeof js_loader === 'undefined') {
     };
 }
 
+// JS LOADER
+if (typeof js_loader !== 'function') {
+    function js_loader(showLoader) {
+        var showLoader = showLoader || 0;
+        var loaderHtml = `
+            <div style="width: 100%;height: 100vh;background: #0a0a0a69;position: fixed;top: 0;z-index: 999999;text-align: center;padding-top: 20%;font-size: 20px;font-family: monospace;">
+                <span style="background: #fff;padding: 10px;border-radius: 5px;color: #a70101;">Please wait...</span>
+            </div>`;
+        var exist_loader = document.querySelector('.js_loader');
+        var div = document.createElement('div');
+        div.classList.add('js_loader');
+        div.innerHTML = loaderHtml;
+        if (showLoader) {
+            (exist_loader == null) ? document.body.appendChild(div) : console.log('Loader already exist.');
+        } else {
+            (exist_loader == null) ? console.log('Loader already removed.') : exist_loader.remove();
+        }
+    }
+}
 
 // BS 4 Alert message to show after ajax or any other operation
 var bs_alert_msg = function(msg, alert_class) {
