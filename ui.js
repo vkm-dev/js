@@ -129,7 +129,10 @@ if (typeof js_loader !== 'function') {
         var showLoader = showLoader || 0;
         var loaderHtml = `
             <div style="width: 100%;height: 100vh;background: #0a0a0a69;position: fixed;top: 0;z-index: 999999;text-align: center;padding-top: 20%;font-size: 20px;font-family: monospace;">
-                <span style="background: #fff;padding: 10px;border-radius: 5px;color: #a70101;">Please wait...</span>
+                <span style="background: #fff;padding: 10px;border-radius: 5px;color: #343a40;">
+                    Please wait...<span class="spinner-border text-dark align-middle"></span>
+                </span>
+                
             </div>`;
         var exist_loader = document.querySelector('.js_loader');
         var div = document.createElement('div');
