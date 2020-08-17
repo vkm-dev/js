@@ -125,12 +125,13 @@ if (typeof js_loader === 'undefined') {
 
 // JS LOADER
 if (typeof js_loader !== 'function') {
-    function js_loader(showLoader) {
+    function js_loader(showLoader,msg) {
+        msg = msg || 'Please wait';
         var showLoader = showLoader || 0;
         var loaderHtml = `
             <div style="width: 100%;height: 100vh;background: #0a0a0a69;position: fixed;top: 0;z-index: 999999;text-align: center;padding-top: 20%;font-size: 20px;font-family: monospace;">
-                <span style="background: #fff;padding: 10px;border-radius: 5px;color: #343a40;">
-                    Please wait...<span class="spinner-border text-dark align-middle"></span>
+                <span class="text-dark" style="background: #fff;padding: 10px;border-radius: 5px;color: #343a40;margin-top: 15%;display: inline-block;">
+                    <span style="font-size:14px;">${msg}.</span><span class="spinner-border align-middle"></span>
                 </span>
                 
             </div>`;
