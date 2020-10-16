@@ -54,3 +54,17 @@ Timer.prototype.countDown = function(callBack) {
         }
     }, 1000);
 };
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#profile_img').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
+    }
+}
+// use readURL
+$("body").on("change", "#pic_btn", function() {
+    readURL(this);
+});
