@@ -265,3 +265,56 @@ function unload(){
         });
     }
 }
+
+// create clone of form or any element with different id attribute number appended in last with underscore
+// NOTE: Every input/select/textarea should have an id like abc_1 and same id in for attribute of label
+function createElementClone(cloneElementClass, insertAfterElementClas) {
+    var cloneEl     = $("."+cloneElementClass+":last").clone(true);
+    var childInputs = $("."+cloneElementClass+":last input");
+    var childSelect = $("."+cloneElementClass+":last select");
+    $.each(childInputs, function(i,el){
+        var inputID = el.id;
+        var newID = getElementNewID(el);
+        $(cloneEl).find('input[id='+inputID+']').attr("id", newID);
+        $(cloneEl).find('label[for='+inputID+']').attr("for", newID);
+    });
+
+    $.each(childSelect, function(i,el) {
+        var inputID = el.id;
+        var newID = getElementNewID(el);
+        $(cloneEl).find('select[id='+inputID+']').attr("id", newID);
+        $(cloneEl).find('label[for='+inputID+']').attr("for", newID);
+    });
+
+    $(cloneEl).find('select').val("");
+    $(cloneEl).find('textarea').val("");
+    $(cloneEl).find('input').val("");
+    $(cloneEl).find('input:checked').prop("checked", false);
+    if (insertAfterElementClas !== undefined) {
+        $(cloneEl).insertAfter("."+insertAfterElementClas);
+    } else {
+        $(cloneEl).insertAfter("."+cloneElementClass+":last");
+    }
+
+    // every element must have id ending with underscore ( _ ) and a number
+    function getElementNewID(el) {
+        var elID      = el.id;
+        if (!elID) {
+            alert("Every elemet should have a unique id to use function getElementNewID()");
+            return false;
+        }
+        var splitID   = elID.split('_');
+        var index     = 1;
+        var newIndex  = 1;
+        var newID     = "";
+        if (splitID.length > 1) {
+            index    = splitID.length - 1;
+            newIndex = Number(splitID[index]) + 1;
+            splitID.pop();
+            newID    = splitID.join("") + "_" + newIndex;
+        } else {
+            newID    = elID + "_" + index;
+        }
+        return newID;
+    }
+}
