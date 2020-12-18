@@ -174,14 +174,7 @@ FormValidation.prototype.validate = function() {
         } 
 
         element.style.outline = '';
-        console.log(inputName,!exceptionEl , 
-                                    !noNameElement ,
-                                    !noIDElement ,
-                                    isReadOnly == null , 
-                                    isDisabled == null , 
-                                    inputType != 'button' , 
-                                    inputType != 'submit' , 
-                                    inputType != 'reset',checkRequiredValidity,isRequired);
+        
         if (checkRequiredValidity || isRequired) {
             if (inputType == 'checkbox' && !element.checked) {
                  if (inputLabel != null && inputLabel != '' && typeof inputLabel !== undefined) {
@@ -379,6 +372,5 @@ FormValidation.prototype.validateEmail = function() {
         return false;
     }
 }
-
 // End from validation 
 
