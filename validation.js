@@ -174,7 +174,15 @@ FormValidation.prototype.validate = function() {
         } 
 
         element.style.outline = '';
-        if (checkRequiredValidity && isRequired) {
+        console.log(inputName,!exceptionEl , 
+                                    !noNameElement ,
+                                    !noIDElement ,
+                                    isReadOnly == null , 
+                                    isDisabled == null , 
+                                    inputType != 'button' , 
+                                    inputType != 'submit' , 
+                                    inputType != 'reset',checkRequiredValidity,isRequired);
+        if (checkRequiredValidity || isRequired) {
             if (inputType == 'checkbox' && !element.checked) {
                  if (inputLabel != null && inputLabel != '' && typeof inputLabel !== undefined) {
                     this.errMessage = inputLabel + ' is required.';
@@ -255,7 +263,7 @@ FormValidation.prototype.validate = function() {
         }
 
         element.style.outline = '';
-        if (checkRequiredValidity && isRequired) {
+        if (checkRequiredValidity || isRequired) {
             if (inputValue == '' || inputValue == null || inputValue == undefined) {
                 if (inputLabel != null && inputLabel != '' && typeof inputLabel !== undefined) {
                     this.errMessage = inputLabel + ' is required.';
@@ -301,7 +309,7 @@ FormValidation.prototype.validate = function() {
         }
 
         element.style.outline = '';
-        if (checkRequiredValidity && isRequired) {
+        if (checkRequiredValidity || isRequired) {
             if (inputValue == '' || inputValue == null || inputValue == undefined) {
                 if (inputLabel != null && inputLabel != '' && typeof inputLabel !== undefined) {
                     this.errMessage = inputLabel + ' is required.';
@@ -371,5 +379,6 @@ FormValidation.prototype.validateEmail = function() {
         return false;
     }
 }
+
 // End from validation 
 
