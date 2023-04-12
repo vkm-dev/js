@@ -1,0 +1,34 @@
+  .table-sortable thead td,
+  .table-sortable th {
+    cursor: pointer;
+  }
+
+  .table-sortable .th-sort-asc::after {
+    content: "\25b4";
+    color: blue;
+  }
+  
+  .table-sortable .th-sort-desc::after {
+    content: "\25be";
+    color: blue;
+    text-align: right;
+  }
+  
+  .table-sortable .th-sort-asc::after,
+  .table-sortable .th-sort-desc::after {
+    margin-left: 5px;
+  }
+  
+  .table-sortable .th-sort-asc,
+  .table-sortable .th-sort-desc {
+    background: rgba(0, 0, 0, 0.1);
+  }
+  .ico-parent-span .ico-up-sort {
+    position: relative;
+    top: -5px;
+    left: 6px;
+  }
+  .ico-parent-span .ico-down-sort {
+    position: relative;
+    top: 3px;
+  }
